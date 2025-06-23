@@ -4,10 +4,9 @@ const { StatusCodes } = require("http-status-codes");
 async function getAnswerById(req, res) {
   const questionId = req.params.id;
   try {
-   await dbCon.query(
-      "SELECT * FROM questionsTable WHERE questionid=?",
-      [questionId]
-    );
+    await dbCon.query("SELECT * FROM questionsTable WHERE questionid=?", [
+      questionId,
+    ]);
 
     const [answers] = await dbCon.query(
       `SELECT 
@@ -33,7 +32,7 @@ async function getAnswerById(req, res) {
 // post answer page
 
 async function createAnswer(req, res) {
-  const {answer} = req.body;
+  const { answer } = req.body;
   const question_id = req.params.id; // fix here
   const userid = req.user.userid;
 
@@ -48,7 +47,7 @@ async function createAnswer(req, res) {
       "INSERT INTO answersTable (answer, questionid, userid) VALUES (?, ?, ?)",
       [answer, question_id, userid]
     );
-    res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfully" });
+    res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfuly" });
   } catch (error) {
     console.error(error);
     res
